@@ -5,7 +5,7 @@ services:
     image: gmazzitelli/cygno-tape:v1.0.5-cygno
     container_name: taper
     stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    tty: true        # docker run ≈-t
 #    environment:
 #      MYSQL_IP: ${MYSQL_IP}
 #      MYSQL_USER: ${MYSQL_USER}
@@ -14,5 +14,5 @@ services:
 #      MYSQL_PORT: ${MYSQL_PORT}
     volumes:
       - ${PWD}/script:/root/script
-      - <disco da condividere>:/root/data
+      - /home/mazzitel/docker/taper:/root/data
 

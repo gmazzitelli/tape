@@ -17,25 +17,27 @@ def main(verbose):
 
     script_path = os.path.dirname(os.path.realpath(__file__))
     start = end = time.time()
-    tmpout = '/tmp/tapetoken'
-    out_tape = 'prova/' # da aggiornare per quax
+    tmp_token = '/tmp/tapetoken'
+    in_dir = '/root/data/'
+    out_tape = 'prova2/' # da aggiornare per quax
     tape_path = 'davs://xfer-archive.cr.cnaf.infn.it:8443/cygno/' # mettere quax
-    files=os.listdir('/root/data/')
+    files=os.listdir(in_dir)
     nfile = len(files)
     print("Numebr of files", nfile)
     
     for i, file in enumerate(files):
-        if (not file.startswith('.'))
+        if (not file.startswith('.')):
             if (end-start)>3000 or (start-end)==0:
-                output = subprocess.check_output("source "+script_path+"/oicd-setup.sh > "+tmpout, shell=True)
-                with open(script_path+"/token.dat") as f:
+                output = subprocess.check_output("source "+script_path+"/oicd-setup.sh > "+tmp_token, shell=True)
+                with open(tmp_token) as f:
                     lines = [line.rstrip() for line in f]
                 os.environ["BEARER_TOKEN"] = lines[1]
                 if (verbose): print(lines[1])
                 start = time.time()
             end = time.time()
             print (">>> coping file: "+file)
-            tape_data_copy = subprocess.check_output("gfal-copy "+file+" "+tape_path+out_tape, shell=True)
+            if verbose: print("gfal-copy "+in_dir+file+" "+tape_path+out_tape+file)
+            tape_data_copy = subprocess.check_output("gfal-copy "+in_dir+file+" "+tape_path+out_tape+file, shell=True)
             print ("File ", file, " ok")
 
 
